@@ -48,6 +48,7 @@ import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.harishpadmanabh.apppreferences.AppPreferences;
 import com.hp.trackzonec.Retro.Utils;
+import com.hp.trackzonec.model.LocUpdate;
 import com.hp.trackzonec.model.Loginmodel;
 
 
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements
         Utils utils;
         String ls;
  AppPreferences appPreferences;
+ Double mlat,mlong;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements
         appPreferences = AppPreferences.getInstance(this, getResources().getString(R.string.app_name));
 
         utils=new Utils();
+
+        Intent serviceIntent=new Intent(this,LocalService.class);
+        startService(serviceIntent);
 
 //locstart====================================
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -154,6 +159,24 @@ public class MainActivity extends AppCompatActivity implements
                         String uid=response.body().getUser_data().getId();
 
                         appPreferences.saveData("uid",uid);
+                        Call<LocUpdate> locUpdateCall=utils.getApi().LOC_UPDATE_CALL(mlat,mlong,uid);
+                        locUpdateCall.enqueue(new Callback<LocUpdate>() {
+                            @Override
+                            public void onResponse(Call<LocUpdate> call, Response<LocUpdate> response) {
+                                if(response.body().getStatus().equalsIgnoreCase("success")){
+                                    Toast.makeText(MainActivity.this, "Location Udated", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(MainActivity.this, "Cannot update location", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<LocUpdate> call, Throwable t) {
+                                Toast.makeText(MainActivity.this, "Cannot update location", Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        });
                     }
 
                     @Override
@@ -299,6 +322,8 @@ public class MainActivity extends AppCompatActivity implements
                 //     _progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(this, "Latitude: " + String.valueOf(mLastLocation.getLatitude())
                         +"Longitude: " + String.valueOf(mLastLocation.getLongitude()), Toast.LENGTH_SHORT).show();
+               mlat=mLastLocation.getLatitude();
+               mlong=mLastLocation.getLongitude();
                 //_latitude.setText("Latitude: " + String.valueOf(mLastLocation.getLatitude()));
                 //_longitude.setText("Longitude: " + String.valueOf(mLastLocation.getLongitude()));
             } else {
@@ -321,6 +346,9 @@ public class MainActivity extends AppCompatActivity implements
         mLastLocation = location;
         //  _progressBar.setVisibility(View.INVISIBLE);
         Toast.makeText(this, "Latitude: " + String.valueOf(mLastLocation.getLatitude())
-                +"Longitude: " + String.valueOf(mLastLocation.getLongitude()), Toast.LENGTH_SHORT).show(); }
+                +"Longitude: " + String.valueOf(mLastLocation.getLongitude()), Toast.LENGTH_SHORT).show();
+        mlat=mLastLocation.getLatitude();
+        mlong=mLastLocation.getLongitude();
+    }
 
 }

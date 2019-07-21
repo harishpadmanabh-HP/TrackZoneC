@@ -1,5 +1,6 @@
 package com.hp.trackzonec.Retro;
 
+import com.hp.trackzonec.model.LocUpdate;
 import com.hp.trackzonec.model.Loginmodel;
 import com.hp.trackzonec.model.RegModel;
 import com.hp.trackzonec.model.UserDetail;
@@ -26,4 +27,7 @@ public interface Apis {
 
     @GET("projects/cTracker/viewuser.php?")
     Call<UserDetail> userdetailCall(@Query("id") String id);
+
+    @GET("projects/cTracker/update_location.php?")
+     Call<LocUpdate> LOC_UPDATE_CALL(@Query("lat")Double lat,@Query("log")Double log,@Query("id")String id);
 }
