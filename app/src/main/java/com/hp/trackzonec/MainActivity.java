@@ -46,6 +46,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.harishpadmanabh.apppreferences.AppPreferences;
 import com.hp.trackzonec.Retro.Utils;
 import com.hp.trackzonec.model.Loginmodel;
 
@@ -58,13 +59,14 @@ public class MainActivity extends AppCompatActivity implements
         EditText pass,email;
         Utils utils;
         String ls;
-
+ AppPreferences appPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         email=findViewById(R.id.email);
         pass=findViewById(R.id.password);
+        appPreferences = AppPreferences.getInstance(this, getResources().getString(R.string.app_name));
 
         utils=new Utils();
 
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements
          Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
 
         // Use bounce interpolator with amplitude 0.2 and frequency 20
-        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 50);
         myAnim.setInterpolator(interpolator);
 
         view.startAnimation(myAnim);
@@ -149,6 +151,9 @@ public class MainActivity extends AppCompatActivity implements
                         Toast.makeText(MainActivity.this, response.body().getStatus(), Toast.LENGTH_SHORT).show();
 
                         ls=response.body().getStatus();
+                        String uid=response.body().getUser_data().getId();
+
+                        appPreferences.saveData("uid",uid);
                     }
 
                     @Override

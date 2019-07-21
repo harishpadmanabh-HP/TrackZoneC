@@ -2,6 +2,7 @@ package com.hp.trackzonec.Retro;
 
 import com.hp.trackzonec.model.Loginmodel;
 import com.hp.trackzonec.model.RegModel;
+import com.hp.trackzonec.model.UserDetail;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -23,4 +24,6 @@ public interface Apis {
     @GET("projects/cTracker/login.php?")
     Call<Loginmodel> loginCall(@Query("email")String email,@Query("password")String pass);
 
+    @GET("projects/cTracker/viewuser.php?")
+    Call<UserDetail> userdetailCall(@Query("id") String id);
 }
