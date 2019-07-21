@@ -1,5 +1,6 @@
 package com.hp.trackzonec.Retro;
 
+import com.hp.trackzonec.model.Loginmodel;
 import com.hp.trackzonec.model.RegModel;
 
 import retrofit2.Call;
@@ -16,5 +17,10 @@ public interface Apis {
                             @Query("password") String password,
                             @Query("lat") Double lat,
                             @Query("log") Double log);
+
+
+
+    @GET("projects/cTracker/login.php?")
+    Call<Loginmodel> loginCall(@Query("email")String email,@Query("password")String pass);
 
 }

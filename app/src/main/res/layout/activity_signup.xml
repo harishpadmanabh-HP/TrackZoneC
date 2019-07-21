@@ -52,7 +52,7 @@
         android:ems="10"
         android:fontFamily="@font/josefin_regular"
         android:hint="Enter email"
-        android:inputType="textPassword"
+        android:inputType="textEmailAddress"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"

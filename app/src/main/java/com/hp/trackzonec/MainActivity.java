@@ -20,12 +20,16 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dx.dxloadingbutton.lib.LoadingButton;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import io.rmiri.buttonloading.ButtonLoading;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -42,20 +46,27 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.hp.trackzonec.Retro.Utils;
+import com.hp.trackzonec.model.Loginmodel;
 
-import static com.google.android.gms.common.api.GoogleApiClient.*;
 
 public class MainActivity extends AppCompatActivity implements
     GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
         GoogleApiClient mGoogleApiClient;
         Location mLastLocation;
         LocationRequest mLocationRequest;
+        EditText pass,email;
+        Utils utils;
+        String ls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        email=findViewById(R.id.email);
+        pass=findViewById(R.id.password);
 
+        utils=new Utils();
 
 //locstart====================================
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -117,7 +128,53 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void loginclick(View view) {
-      //  didTapButton(view);
+         Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+
+        view.startAnimation(myAnim);
+
+
+        myAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                Call<Loginmodel> loginmodelCall=utils.getApi().loginCall(email.getText().toString(),pass.getText().toString());
+                Log.e("email",email.getText().toString());
+                Log.e("pass",pass.getText().toString());
+                loginmodelCall.enqueue(new Callback<Loginmodel>() {
+                    @Override
+                    public void onResponse(Call<Loginmodel> call, Response<Loginmodel> response) {
+                        Toast.makeText(MainActivity.this, response.body().getStatus(), Toast.LENGTH_SHORT).show();
+
+                        ls=response.body().getStatus();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Loginmodel> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, ""+t, Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if(ls.equalsIgnoreCase("success")){
+                    startActivity (new Intent(MainActivity.this,MapsActivity.class));
+                }
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+
     }
     @Override
     protected void onStop() {

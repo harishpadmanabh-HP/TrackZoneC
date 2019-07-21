@@ -112,7 +112,7 @@ public class Register extends AppCompatActivity implements
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLocation();
+               // getLocation();
 
                 Call<RegModel> regModelCall = utils.getApi().regCall(name.getText().toString(),
                                                                      email.getText().toString(),
@@ -126,8 +126,8 @@ public class Register extends AppCompatActivity implements
                 Log.e("name",name.getText().toString());
                 Log.e("email",email.getText().toString());
                 Log.e("pass",pass.getText().toString());
-          //      Log.e("lat",lat.toString());
-            //    Log.e("lon",lon.toString());
+                Log.e("lat",lat.toString());
+                Log.e("lon",lon.toString());
 
 
                 regModelCall.enqueue(new Callback<RegModel>() {
