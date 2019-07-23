@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements
 
         utils=new Utils();
 
-        Intent serviceIntent=new Intent(this,LocalService.class);
-        startService(serviceIntent);
+//        Intent serviceIntent=new Intent(this,LocalService.class);
+//        startService(serviceIntent);
 
 //locstart====================================
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -159,6 +159,9 @@ public class MainActivity extends AppCompatActivity implements
                         String uid=response.body().getUser_data().getId();
 
                         appPreferences.saveData("uid",uid);
+                        Log.e("mlat",String.valueOf(mlat));
+                        Log.e("mlong",String.valueOf(mlong));
+
                         Call<LocUpdate> locUpdateCall=utils.getApi().LOC_UPDATE_CALL(mlat,mlong,uid);
                         locUpdateCall.enqueue(new Callback<LocUpdate>() {
                             @Override
@@ -191,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onAnimationEnd(Animation animation) {
                 if(ls.equalsIgnoreCase("success")){
-                    startActivity (new Intent(MainActivity.this,MapsActivity.class));
+                    startActivity (new Intent(MainActivity.this,MapsActivity2.class));
                 }
 
             }

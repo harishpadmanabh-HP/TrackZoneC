@@ -4,6 +4,7 @@ import com.hp.trackzonec.model.LocUpdate;
 import com.hp.trackzonec.model.Loginmodel;
 import com.hp.trackzonec.model.RegModel;
 import com.hp.trackzonec.model.UserDetail;
+import com.hp.trackzonec.model.UsersList;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -30,4 +31,8 @@ public interface Apis {
 
     @GET("projects/cTracker/update_location.php?")
      Call<LocUpdate> LOC_UPDATE_CALL(@Query("lat")Double lat,@Query("log")Double log,@Query("id")String id);
+
+
+    @GET("projects/cTracker/view.php")
+    Call<UsersList> USERS_LIST_CALL();
 }
