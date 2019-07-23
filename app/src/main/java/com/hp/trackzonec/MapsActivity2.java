@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ AppPreferences appPreferences;
     List<UsersList.DriverDetailsBean> usersLists;
     RecyclerView recyclerView;
     View background;
+    int cxx,cyy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,8 @@ AppPreferences appPreferences;
                             = new LinearLayoutManager(MapsActivity2.this, RecyclerView.VERTICAL, false);
                     recyclerView.setLayoutManager(horizontalLayoutManagaer);
                     RVAdapter rvAdapter=new RVAdapter(usersLists,MapsActivity2.this);
-                    recyclerView.setAdapter(rvAdapter);
+                //    recyclerView.setAdapter(rvAdapter);
+                    recyclerView.setAdapter(new RVA(usersLists,MapsActivity2.this));
 
 
                 }
@@ -268,15 +271,33 @@ AppPreferences appPreferences;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RVVH holder, final int position) {
+        public void onBindViewHolder(@NonNull final RVVH holder, final int position) {
             holder.name.setText(usersLists.get(position).getName());
             holder.lat.setText("Latitude : "+usersLists.get(position).getLat());
             holder.log.setText("Longitude : "+usersLists.get(position).getLog());
             holder.mview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    cxx=holder.mview.getRight();
+                    cyy=holder.mview.getBottom();
+
+                    int[] location =new int[2];
+
+                    holder.mview.getLocationOnScreen(location);
+
+                  appPreferences.saveInt("3cxx",location[0]);
+                    appPreferences.saveInt("3cyy",location[1]);
+
+                 //   appPreferences.saveInt("3cxx",Integer.parseInt(holder.mview.getX()+holder.mview.getWidth()/2));
+
                     String uid=usersLists.get(position).getId();
+                    String name=usersLists.get(position).getName();
+                    Toast.makeText(context, "uid"+uid, Toast.LENGTH_SHORT).show();
+                    Log.e("UID",uid);
+                    Log.e("FROM APP PREFERENCES",appPreferences.getData("uidshared"));
+                    Toast.makeText(context, ""+appPreferences.getData("uidshared"), Toast.LENGTH_SHORT).show();
                     appPreferences.saveData("uidshared",uid);
+                    appPreferences.saveData("nameshared",name);
                     Intent i=new Intent(MapsActivity2.this,MapsActivity3.class);
                     startActivity(i);
                 }
@@ -301,5 +322,20 @@ AppPreferences appPreferences;
                 log=itemView.findViewById(R.id.userlong);
             }
         }
+    }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // MotionEvent object holds X-Y values
+        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+            String text = "You click at x = " + event.getX() + " and y = " + event.getY();
+            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+
+
+//            appPreferences.saveInt("3cxx",Integer.parseInt(event.getX()));
+//            appPreferences.saveInt("3cyy",cyy);
+
+        }
+
+        return super.onTouchEvent(event);
     }
 }
