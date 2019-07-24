@@ -4,6 +4,8 @@
     android:layout_height="wrap_content"
     android:padding="15dp"
     android:background="#fff"
+    android:elevation="35dp"
+    android:translationZ="40dp"
     android:layout_margin="10dp"
     >
 

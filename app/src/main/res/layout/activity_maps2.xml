@@ -5,9 +5,37 @@
     android:id="@+id/root"
     android:layout_height="fill_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#4A374D">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+
+
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/ic_settings_black_24dp" />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:layout_below="@+id/tool"
         android:id="@+id/map"
+android:fragmentEnterTransition="@anim/left_to_right"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="300dp"

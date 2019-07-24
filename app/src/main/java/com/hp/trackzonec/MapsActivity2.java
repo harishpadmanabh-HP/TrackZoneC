@@ -1,6 +1,7 @@
 package com.hp.trackzonec;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +47,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
     Double mlat,mlong;
-AppPreferences appPreferences;
+    AppPreferences appPreferences;
     List<UsersList.DriverDetailsBean> usersLists;
     RecyclerView recyclerView;
     View background;
@@ -56,6 +57,13 @@ AppPreferences appPreferences;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool);
+
+        //setting the title
+        toolbar.setTitle("You are found !");
+
+        //placing toolbar in place of actionbar
+        //setSupportActionBar(toolbar);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

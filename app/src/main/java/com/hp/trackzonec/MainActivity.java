@@ -21,6 +21,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dx.dxloadingbutton.lib.LoadingButton;
@@ -68,6 +69,31 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_login);
         email=findViewById(R.id.email);
         pass=findViewById(R.id.password);
+     final ImageView   imageView=(ImageView)findViewById(R.id.logo);
+        Animation an2= AnimationUtils.loadAnimation(this,R.anim.left_to_right);
+        imageView.startAnimation(an2);
+        an2.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                imageView.setImageResource(R.drawable.ic_gold_medal);
+                Animation an3= AnimationUtils.loadAnimation(MainActivity.this,R.anim.bounce);
+
+                MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 50);
+                an3.setInterpolator(interpolator);
+
+                imageView.startAnimation(an3);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
         appPreferences = AppPreferences.getInstance(this, getResources().getString(R.string.app_name));
 
         utils=new Utils();
@@ -352,6 +378,47 @@ public class MainActivity extends AppCompatActivity implements
                 +"Longitude: " + String.valueOf(mLastLocation.getLongitude()), Toast.LENGTH_SHORT).show();
         mlat=mLastLocation.getLatitude();
         mlong=mLastLocation.getLongitude();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        //  onCreate(savedInstanceState);
+
+//locstart====================================
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        } else
+            Toast.makeText(this, "Not Connected!", Toast.LENGTH_SHORT).show();
+//=====================end loc
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // onCreate(savedInstanceState);
+
+//locstart====================================
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        } else
+            Toast.makeText(this, "Not Connected!", Toast.LENGTH_SHORT).show();
+//=====================end loc
+
+
     }
 
 }
