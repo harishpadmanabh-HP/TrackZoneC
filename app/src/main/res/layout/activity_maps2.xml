@@ -18,7 +18,8 @@
 
             <ImageView
 
-
+android:id="@+id/settings"
+                android:onClick="logout"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
@@ -44,6 +45,7 @@ android:fragmentEnterTransition="@anim/left_to_right"
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
+        android:layoutAnimation="@anim/layout_anim_recycler_view"
         android:layout_width="394dp"
         android:layout_height="392dp"
         android:layout_below="@+id/map"

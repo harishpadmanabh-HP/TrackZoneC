@@ -29,7 +29,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'br.com.simplepass:loading-button-android:2.1.5'
+    implementation 'br.com.simplepass:loading-button-android:1.7.2'
     implementation 'com.google.android.material:material:1.1.0-alpha06'
 
     implementation 'com.github.StevenDXC:DxLoadingButton:2.2'

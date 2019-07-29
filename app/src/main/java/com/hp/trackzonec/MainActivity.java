@@ -26,7 +26,6 @@ import android.widget.Toast;
 
 import com.dx.dxloadingbutton.lib.LoadingButton;
 
-import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import io.rmiri.buttonloading.ButtonLoading;
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -21,6 +21,8 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,6 +88,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 //    recyclerView.setAdapter(rvAdapter);
                     recyclerView.setAdapter(new RVA(usersLists,MapsActivity2.this));
 
+                    runLayoutAnimation(recyclerView);
 
                 }
             }
@@ -260,6 +263,10 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
+    public void logout(View view) {
+        startActivity(new Intent(MapsActivity2.this,Logout.class));
+    }
+
     class RVA extends RecyclerView.Adapter<RVA.RVVH> {
         List<UsersList.DriverDetailsBean> usersLists;
         Context context;
@@ -345,5 +352,15 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         }
 
         return super.onTouchEvent(event);
+    }
+
+    private void runLayoutAnimation(final RecyclerView recyclerView) {
+        final Context context = recyclerView.getContext();
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_anim_recycler_view);
+
+        recyclerView.setLayoutAnimation(controller);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
     }
 }
