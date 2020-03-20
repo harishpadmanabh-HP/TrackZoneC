@@ -90,6 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/login" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/forgot_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

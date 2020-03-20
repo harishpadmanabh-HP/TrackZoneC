@@ -53,6 +53,11 @@ public class LocalService extends Service
         public void handleMessage(Message msg)
         {
             Toast.makeText(getApplicationContext(), "test service", Toast.LENGTH_SHORT).show();
+
+
+
+
+
         }
     };
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TrackZoneC</string>
+    <string name="app_name">Safe Zone</string>
     <string name="hint_email">Enter email address</string>
     <string name="hint_password">Enter password</string>
     <string name="hint_password_confirm">Confirm password</string>

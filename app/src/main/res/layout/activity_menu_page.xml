@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:text="Indian Penal Codes"
         android:textSize="25dp"
+        android:onClick="IPCclick"
         android:fontFamily="@font/righteous"
         android:textColor="#000"
         android:layout_margin="15dp"/>

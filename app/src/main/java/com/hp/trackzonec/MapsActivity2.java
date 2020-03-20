@@ -61,6 +61,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool);
 
+       // Intent serviceIntent=new Intent(this,BackgroundUpdateService.class);
+       // startService(serviceIntent);
+
         //setting the title
         toolbar.setTitle("You are found !");
 

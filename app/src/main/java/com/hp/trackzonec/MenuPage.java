@@ -17,4 +17,9 @@ public class MenuPage extends AppCompatActivity {
     public void healthissues(View view) {
         startActivity(new Intent(MenuPage.this,HealthIssues.class));
     }
+
+    public void IPCclick(View view) {
+        startActivity(new Intent(MenuPage.this,IPC.class));
+
+    }
 }

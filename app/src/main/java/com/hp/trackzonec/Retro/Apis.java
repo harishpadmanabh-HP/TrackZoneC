@@ -1,6 +1,8 @@
 package com.hp.trackzonec.Retro;
 
 import com.hp.trackzonec.model.HealthIssuesModel;
+import com.hp.trackzonec.model.IPCFilterModel;
+import com.hp.trackzonec.model.IPCModel;
 import com.hp.trackzonec.model.LocUpdate;
 import com.hp.trackzonec.model.Loginmodel;
 import com.hp.trackzonec.model.RegModel;
@@ -39,4 +41,10 @@ public interface Apis {
 
     @GET("projects/cTracker/view_tip.php")
     Call<HealthIssuesModel> healthIssuesCall();
+
+    @GET("projects/cTracker/sections.php")
+    Call<IPCModel> ipcCall();
+
+    @GET("projects/cTracker/section_with_key.php?")
+    Call<IPCFilterModel> ipcFilter(@Query("title") String title);
 }

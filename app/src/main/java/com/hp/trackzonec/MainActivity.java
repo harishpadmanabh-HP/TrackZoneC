@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                imageView.setImageResource(R.drawable.ic_gold_medal);
+                imageView.setImageResource(R.drawable.womenempowerment);
                 Animation an3= AnimationUtils.loadAnimation(MainActivity.this,R.anim.bounce);
 
                 MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 50);
@@ -182,30 +182,35 @@ public class MainActivity extends AppCompatActivity implements
                         Toast.makeText(MainActivity.this, response.body().getStatus(), Toast.LENGTH_SHORT).show();
 
                         ls=response.body().getStatus();
-                        String uid=response.body().getUser_data().getId();
+                        if(ls.equalsIgnoreCase("success")) {
+                            String uid = response.body().getUser_data().getId();
 
-                        appPreferences.saveData("uid",uid);
-                        Log.e("mlat",String.valueOf(mlat));
-                        Log.e("mlong",String.valueOf(mlong));
+                            appPreferences.saveData("uid", uid);
+                            Log.e("mlat", String.valueOf(mlat));
+                            Log.e("mlong", String.valueOf(mlong));
 
-                        Call<LocUpdate> locUpdateCall=utils.getApi().LOC_UPDATE_CALL(mlat,mlong,uid);
-                        locUpdateCall.enqueue(new Callback<LocUpdate>() {
-                            @Override
-                            public void onResponse(Call<LocUpdate> call, Response<LocUpdate> response) {
-                                if(response.body().getStatus().equalsIgnoreCase("success")){
-                                    Toast.makeText(MainActivity.this, "Location Udated", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(MainActivity.this, "Cannot update location", Toast.LENGTH_SHORT).show();
+                            Call<LocUpdate> locUpdateCall = utils.getApi().LOC_UPDATE_CALL(mlat, mlong, uid);
+                            locUpdateCall.enqueue(new Callback<LocUpdate>() {
+                                @Override
+                                public void onResponse(Call<LocUpdate> call, Response<LocUpdate> response) {
+                                    if (response.body().getStatus().equalsIgnoreCase("success")) {
+                                        Toast.makeText(MainActivity.this, "Location Udated", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(MainActivity.this, "Cannot update location", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(Call<LocUpdate> call, Throwable t) {
-                                Toast.makeText(MainActivity.this, "Cannot update location", Toast.LENGTH_SHORT).show();
+                                @Override
+                                public void onFailure(Call<LocUpdate> call, Throwable t) {
+                                    Toast.makeText(MainActivity.this, "Cannot update location", Toast.LENGTH_SHORT).show();
 
 
-                            }
-                        });
+                                }
+                            });
+                        }else
+                        {
+                            Toast.makeText(MainActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
