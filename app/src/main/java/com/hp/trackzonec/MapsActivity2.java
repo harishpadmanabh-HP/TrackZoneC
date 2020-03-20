@@ -264,7 +264,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     }
 
     public void logout(View view) {
-        startActivity(new Intent(MapsActivity2.this,Logout.class));
+        startActivity(new Intent(MapsActivity2.this,MenuPage.class));
     }
 
     class RVA extends RecyclerView.Adapter<RVA.RVVH> {

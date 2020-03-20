@@ -1,5 +1,6 @@
 package com.hp.trackzonec.Retro;
 
+import com.hp.trackzonec.model.HealthIssuesModel;
 import com.hp.trackzonec.model.LocUpdate;
 import com.hp.trackzonec.model.Loginmodel;
 import com.hp.trackzonec.model.RegModel;
@@ -35,4 +36,7 @@ public interface Apis {
 
     @GET("projects/cTracker/view.php")
     Call<UsersList> USERS_LIST_CALL();
+
+    @GET("projects/cTracker/view_tip.php")
+    Call<HealthIssuesModel> healthIssuesCall();
 }

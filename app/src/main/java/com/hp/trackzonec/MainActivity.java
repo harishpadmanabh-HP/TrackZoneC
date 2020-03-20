@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void loginclick(View view) {
+
          Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
 
         // Use bounce interpolator with amplitude 0.2 and frequency 20
