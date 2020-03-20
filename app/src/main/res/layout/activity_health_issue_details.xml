@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HealthIssueDetails">
+
+    <ImageView
+        android:transitionName="healthimage"
+        android:id="@+id/hImage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        />
+
+    <TextView
+        android:id="@+id/hname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Health name"
+        android:textSize="28dp"
+        android:fontFamily="@font/righteous"
+        android:textColor="#000"
+        android:layout_margin="15dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/hdesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Health name"
+        android:textSize="22dp"
+        android:fontFamily="@font/josefin_regular"
+        android:textColor="#585757"
+        android:layout_margin="15dp"/>
+    </ScrollView>
+
+</LinearLayout>
